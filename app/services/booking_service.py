@@ -4,9 +4,11 @@ from enum import IntEnum
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.config import MOSCOW_TZ
 from app.db.repositories.booking_repo import BookingRepository
 from app.db.repositories.room_repo import RoomRepository
 from app.db.repositories.user_repo import UserRepository
+
 
 class RoleId(IntEnum):
     STUDENT = 1
@@ -22,11 +24,11 @@ class BookingStatusId(IntEnum):
 
 
 class BookingConflictError(Exception):
-    """Raised when booking cannot be created due to conflict."""
+    pass
 
 
 class BookingValidationError(Exception):
-    """Raised for invalid booking request payload."""
+    pass
 
 
 class BookingService:
@@ -44,35 +46,43 @@ class BookingService:
         ends_at: datetime,
         purpose: str,
     ):
-        now = datetime.now(starts_at.tzinfo) if starts_at.tzinfo else datetime.utcnow()
-        if starts_at >= ends_at:
-            raise BookingValidationError("Некорректный интервал бронирования.")
-        if starts_at <= now:
-            raise BookingValidationError("Нельзя бронировать аудиторию в прошедшем времени.")
+        if starts_at.tzinfo is None:
+            starts_at = starts_at.replace(tzinfo=MOSCOW_TZ)
+        if ends_at.tzinfo is None:
+            ends_at = ends_at.replace(tzinfo=MOSCOW_TZ)
 
-        user = await self.user_repo.get_by_id(user_id)
-        if user is None or not user.is_active:
-            raise BookingValidationError("Пользователь не найден или деактивирован.")
+        now = datetime.now(tz=MOSCOW_TZ)
+        if starts_at >= ends_at:
+            raise BookingValidationError("Начало должно быть раньше окончания.")
+        if starts_at <= now:
+            raise BookingValidationError("Нельзя бронировать в прошедшем времени.")
 
         async with self.session.begin():
-            # Lock room row to serialize competing booking operations.
+            user = await self.user_repo.get_by_id(user_id)
+            if user is None or not user.is_active:
+                raise BookingValidationError("Пользователь не найден или деактивирован.")
+
             room = await self.room_repo.get_room_for_update(room_id)
             if room is None:
                 raise BookingValidationError("Аудитория не найдена или недоступна.")
 
-            # Optional advisory lock for extra safety in distributed workers.
-            await self.session.execute(text("SELECT pg_advisory_xact_lock(:room_id)"), {"room_id": room_id})
+            await self.session.execute(
+                text("SELECT pg_advisory_xact_lock(:room_id)"),
+                {"room_id": room_id},
+            )
 
-            has_schedule_conflict = await self.room_repo.has_unavailability_conflict(room_id, starts_at, ends_at)
+            has_schedule_conflict = await self.room_repo.has_unavailability_conflict(
+                room_id, starts_at, ends_at,
+            )
             if has_schedule_conflict:
-                raise BookingConflictError("Слот занят по расписанию.")
+                raise BookingConflictError("Время занято по расписанию пар.")
 
-            has_booking_conflict = await self.booking_repo.has_active_conflict(room_id, starts_at, ends_at)
+            has_booking_conflict = await self.booking_repo.has_active_conflict(
+                room_id, starts_at, ends_at,
+            )
             priority = 2 if user.role_id == RoleId.TEACHER else 1
-
             status_id = BookingStatusId.APPROVED
             if has_booking_conflict:
-                # Teacher can request override review, student also goes to moderation queue.
                 status_id = BookingStatusId.PENDING
 
             booking = await self.booking_repo.create_booking(
@@ -91,15 +101,14 @@ class BookingService:
         return await self.booking_repo.get_user_bookings(user_id)
 
     async def cancel_booking(self, booking_id: int, actor_user_id: int):
-        booking = await self.booking_repo.get_by_id(booking_id)
-        if booking is None:
-            raise BookingValidationError("Бронирование не найдено.")
-        if booking.user_id != actor_user_id:
-            raise BookingValidationError("Нельзя отменять чужое бронирование.")
-        if booking.status_id not in (BookingStatusId.PENDING, BookingStatusId.APPROVED):
-            raise BookingValidationError("Бронирование уже неактивно.")
-
         async with self.session.begin():
+            booking = await self.booking_repo.get_by_id(booking_id)
+            if booking is None:
+                raise BookingValidationError("Бронирование не найдено.")
+            if booking.user_id != actor_user_id:
+                raise BookingValidationError("Нельзя отменять чужое бронирование.")
+            if booking.status_id not in (BookingStatusId.PENDING, BookingStatusId.APPROVED):
+                raise BookingValidationError("Бронирование уже неактивно.")
             booking.status_id = int(BookingStatusId.CANCELLED)
             await self.session.flush()
         return booking

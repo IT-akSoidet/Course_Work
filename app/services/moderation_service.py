@@ -1,4 +1,3 @@
-from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.models import AuditLog, Booking
@@ -10,6 +9,8 @@ class ModerationService:
         self.session = session
 
     async def list_pending(self) -> list[Booking]:
+        from sqlalchemy import select
+
         query = select(Booking).where(Booking.status_id == int(BookingStatusId.PENDING))
         result = await self.session.execute(query)
         return list(result.scalars().all())
@@ -27,13 +28,13 @@ class ModerationService:
         status: BookingStatusId,
         audit_action: str,
     ) -> Booking:
-        booking = await self.session.get(Booking, booking_id)
-        if booking is None:
-            raise BookingValidationError("Бронь не найдена.")
-        if booking.status_id != int(BookingStatusId.PENDING):
-            raise BookingValidationError("Можно модерировать только pending-заявки.")
-
         async with self.session.begin():
+            booking = await self.session.get(Booking, booking_id)
+            if booking is None:
+                raise BookingValidationError("Бронь не найдена.")
+            if booking.status_id != int(BookingStatusId.PENDING):
+                raise BookingValidationError("Можно модерировать только заявки на рассмотрении.")
+
             booking.status_id = int(status)
             self.session.add(
                 AuditLog(
