@@ -1,0 +1,201 @@
+Reference data seeded.
+Using proxy for Telegram API: http://172.25.96.1:12334
+Bot commands configured.
+Bot starting polling...
+Start polling
+Run polling for bot @hse_space_booking_bot id=8594924297 - 'HSE-SPACE'
+Update id=995241166 is handled. Duration 478 ms by bot id=8594924297
+Received SIGTERM signal
+Polling stopped for bot @hse_space_booking_bot id=8594924297 - 'HSE-SPACE'
+Polling stopped
+Reference data seeded.
+Using proxy for Telegram API: http://172.25.96.1:12334
+Bot commands configured.
+Bot starting polling...
+Start polling
+Run polling for bot @hse_space_booking_bot id=8594924297 - 'HSE-SPACE'
+Update id=995241167 is handled. Duration 519 ms by bot id=8594924297
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected
+Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 1.537419 seconds and try again... (tryings = 1, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 2.007462 seconds and try again... (tryings = 2, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 2.721956 seconds and try again... (tryings = 3, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 3.546442 seconds and try again... (tryings = 4, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.524638 seconds and try again... (tryings = 5, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.140073 seconds and try again... (tryings = 6, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.786502 seconds and try again... (tryings = 7, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.950216 seconds and try again... (tryings = 8, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.060705 seconds and try again... (tryings = 9, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.977910 seconds and try again... (tryings = 10, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.141622 seconds and try again... (tryings = 11, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.173870 seconds and try again... (tryings = 12, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.070437 seconds and try again... (tryings = 13, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.866788 seconds and try again... (tryings = 14, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.078937 seconds and try again... (tryings = 15, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.064606 seconds and try again... (tryings = 16, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.918886 seconds and try again... (tryings = 17, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.025290 seconds and try again... (tryings = 18, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.196034 seconds and try again... (tryings = 19, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.079822 seconds and try again... (tryings = 20, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.878073 seconds and try again... (tryings = 21, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.982585 seconds and try again... (tryings = 22, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.111824 seconds and try again... (tryings = 23, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.041024 seconds and try again... (tryings = 24, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.084517 seconds and try again... (tryings = 25, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.951866 seconds and try again... (tryings = 26, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.009154 seconds and try again... (tryings = 27, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.941816 seconds and try again... (tryings = 28, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.966241 seconds and try again... (tryings = 29, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.971120 seconds and try again... (tryings = 30, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.018730 seconds and try again... (tryings = 31, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.102746 seconds and try again... (tryings = 32, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.032730 seconds and try again... (tryings = 33, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.051955 seconds and try again... (tryings = 34, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.985207 seconds and try again... (tryings = 35, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.072061 seconds and try again... (tryings = 36, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.983955 seconds and try again... (tryings = 37, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.939474 seconds and try again... (tryings = 38, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.870518 seconds and try again... (tryings = 39, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.054239 seconds and try again... (tryings = 40, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.825370 seconds and try again... (tryings = 41, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.947051 seconds and try again... (tryings = 42, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.034162 seconds and try again... (tryings = 43, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.893133 seconds and try again... (tryings = 44, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.034516 seconds and try again... (tryings = 45, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.052814 seconds and try again... (tryings = 46, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.036266 seconds and try again... (tryings = 47, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.072094 seconds and try again... (tryings = 48, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.013058 seconds and try again... (tryings = 49, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.132651 seconds and try again... (tryings = 50, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.092851 seconds and try again... (tryings = 51, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.993313 seconds and try again... (tryings = 52, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.941485 seconds and try again... (tryings = 53, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.250532 seconds and try again... (tryings = 54, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.869132 seconds and try again... (tryings = 55, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.819499 seconds and try again... (tryings = 56, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.105463 seconds and try again... (tryings = 57, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.974918 seconds and try again... (tryings = 58, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.067498 seconds and try again... (tryings = 59, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.013818 seconds and try again... (tryings = 60, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.135152 seconds and try again... (tryings = 61, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.847838 seconds and try again... (tryings = 62, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.131978 seconds and try again... (tryings = 63, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.906056 seconds and try again... (tryings = 64, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.078205 seconds and try again... (tryings = 65, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.175338 seconds and try again... (tryings = 66, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.827468 seconds and try again... (tryings = 67, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.955368 seconds and try again... (tryings = 68, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.914120 seconds and try again... (tryings = 69, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.917644 seconds and try again... (tryings = 70, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.016542 seconds and try again... (tryings = 71, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.066708 seconds and try again... (tryings = 72, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.066895 seconds and try again... (tryings = 73, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.027882 seconds and try again... (tryings = 74, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.904826 seconds and try again... (tryings = 75, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.045786 seconds and try again... (tryings = 76, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.920631 seconds and try again... (tryings = 77, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.990598 seconds and try again... (tryings = 78, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.820335 seconds and try again... (tryings = 79, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.963189 seconds and try again... (tryings = 80, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.058150 seconds and try again... (tryings = 81, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.967628 seconds and try again... (tryings = 82, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.966468 seconds and try again... (tryings = 83, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.060579 seconds and try again... (tryings = 84, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.834351 seconds and try again... (tryings = 85, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.979133 seconds and try again... (tryings = 86, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.036588 seconds and try again... (tryings = 87, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.905570 seconds and try again... (tryings = 88, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.992460 seconds and try again... (tryings = 89, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 5.321133 seconds and try again... (tryings = 90, bot id = 8594924297)
+Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer
+Sleep for 4.874997 seconds and try again... (tryings = 91, bot id = 8594924297)

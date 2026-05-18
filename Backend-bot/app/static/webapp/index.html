@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Бронь аудиторий НИУ ВШЭ</title>
+  <link rel="stylesheet" href="/static/webapp/styles.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <h1>Бронь аудиторий НИУ ВШЭ — Нижний Новгород</h1>
+      <p id="user-badge" class="user-badge">Загрузка профиля...</p>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab is-active" data-tab="search" type="button">Поиск</button>
+      <button class="tab" data-tab="bookings" type="button">Мои брони</button>
+      <button class="tab" data-tab="admin" id="admin-tab-btn" type="button" hidden>Модерация</button>
+    </nav>
+
+    <section id="alerts"></section>
+
+    <section class="card tab-panel" data-panel="search">
+      <h2>Найти свободные аудитории</h2>
+      <form id="search-form" class="grid-form">
+        <label>Начало
+          <input type="datetime-local" id="search-start" required />
+        </label>
+        <label>Окончание
+          <input type="datetime-local" id="search-end" required />
+        </label>
+        <label>Минимальная вместимость
+          <input type="number" id="search-capacity" value="10" min="1" required />
+        </label>
+        <button class="btn btn-primary" type="submit">Найти аудитории</button>
+      </form>
+
+      <div id="rooms-results" class="list"></div>
+    </section>
+
+    <section class="card tab-panel" data-panel="bookings" hidden>
+      <h2>Мои бронирования</h2>
+      <button id="refresh-bookings" class="btn" type="button">Обновить</button>
+      <div id="bookings-list" class="list"></div>
+    </section>
+
+    <section class="card tab-panel" data-panel="admin" hidden>
+      <h2>Очередь модерации</h2>
+      <button id="refresh-admin" class="btn" type="button">Обновить</button>
+      <div id="admin-list" class="list"></div>
+    </section>
+  </main>
+
+  <template id="room-card-template">
+    <article class="item-card">
+      <h3 class="item-title"></h3>
+      <p class="muted room-building"></p>
+      <p class="muted room-capacity"></p>
+      <label>Цель бронирования
+        <input class="purpose-input" maxlength="500" placeholder="Например: встреча студклуба" />
+      </label>
+      <button class="btn btn-primary room-book-btn" type="button">Забронировать</button>
+    </article>
+  </template>
+
+  <script src="/static/webapp/app.js" type="module"></script>
+</body>
+</html>
