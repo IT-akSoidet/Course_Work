@@ -1,0 +1,71 @@
+{
+  "LocalizationEn" : {
+    "App": {
+      "TelegramWebAppError": "Please, open in",
+      "TelegramUserError" : "Please, sign in bu sending /sign_in to bot"
+    },
+    "Rules": {
+      "Title": "Rules",
+      "FirstRule": {
+        "Title" : "Booking time",
+        "FirstParagraph": "Booking is not allowed anytime because of university classes",
+        "SecondParagraph": "Usually you cannot book a room from 7:00 to 19:00"
+      },
+      "SecondRule": {
+        "Title" : "Available rooms",
+        "FirstParagraph": "You can book only rooms with Yellow access",
+        "SecondParagraph": "You can see available for booking rooms by clicking \"See rooms\"",
+        "Button": "See rooms"
+      },
+      "ThirdRule": {
+        "Title" : "Booking time",
+        "FirstParagraph": "You can book one room not more than 3 horus per day",
+        "SecondParagraph": "In case you need more, other people can book it again"
+      },
+      "FourthRule": {
+        "Title" : "Please respect",
+        "FirstParagraph": "Your booking can be removed by administrators for some important events or classes",
+        "SecondParagraph": "You will be informed in this case"
+      }
+    },
+    "Navigation": {
+      "Title" : "Navigation",
+      "Book": "Book a room",
+      "All": "All bookings",
+      "My": "My bookings",
+      "Rules": "Rules"
+    },
+    "My": {
+      "Title": "My Bookings",
+      "Empty": "You have no active bookings!",
+      "At": "At ",
+      "From": "From",
+      "To": "To",
+      "Confirm" : "Confirm deletion",
+      "ConfirmFull" : "Do you really want to delete",
+      "Cancel" : "Cancel",
+      "Error" : "Oops, an error has occurred..."
+    },
+    "Book": {
+      "Date": "Date",
+      "Time": "Time of Start",
+      "Duration": "Duration",
+      "Room": "Room",
+      "Title" : "Title",
+      "Confirm": "Confirm",
+      "Cancel" : "Cancel",
+      "Book" : "Book",
+      "At" : "At",
+      "For" : "For",
+      "Minutes" : "Minutes"
+    },
+    "Rooms" : {
+      "Title" : "Available Rooms",
+      "Capacity" : "Capacity is",
+      "Places" : "Places"
+    },
+    "Utils" : {
+      "Error" : "Oops, an error has occurred..."
+    }
+  }
+}

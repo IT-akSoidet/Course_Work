@@ -1,0 +1,49 @@
+
+/* Time Picker */
+.ant-picker{
+    width: 200px;
+}
+
+.ant-picker-panel {
+    width: 300px;
+
+
+}
+
+.ant-picker-time-panel-column {
+    overflow: scroll !important;
+    overflow-x: hidden !important;
+}
+
+.ant-picker-time-panel-column > ::-webkit-scrollbar {
+    width: 0 !important; /* Remove scrollbar space */
+    background: transparent !important; /* Optional: just make scrollbar invisible */
+}
+
+
+.ant-picker-time-panel-cell, .ant-picker-time-panel-cell-inner {
+    text-align: center;
+    width: 100% !important;
+    padding-inline-start: 14px;
+
+    font-size: 16px;
+}
+
+
+.ant-picker-ranges {
+    height: 100% !important;
+
+    margin: 0;
+}
+
+/* Selector */
+.ant-select{
+    width: 200px;
+}
+
+.ant-select-dropdown{
+    width:300px !important;
+    text-align: center;
+    font-size: 16px;
+
+}
