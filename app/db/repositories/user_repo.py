@@ -16,20 +16,26 @@ class UserRepository:
         result = await self.session.execute(query)
         return result.scalar_one_or_none()
 
-    async def create(
+    async def upsert(
         self,
         telegram_id: int,
         full_name: str,
-        role_id: int,
-        faculty_id: int | None = None,
+        username: str | None,
     ) -> User:
-        user = User(
-            telegram_id=telegram_id,
-            full_name=full_name,
-            role_id=role_id,
-            faculty_id=faculty_id,
-            is_active=True,
-        )
-        self.session.add(user)
-        await self.session.flush()
+        user = await self.get_by_telegram_id(telegram_id)
+        if user is None:
+            user = User(telegram_id=telegram_id, full_name=full_name, username=username)
+            self.session.add(user)
+            await self.session.flush()
+            return user
+
+        changed = False
+        if user.full_name != full_name:
+            user.full_name = full_name
+            changed = True
+        if user.username != username:
+            user.username = username
+            changed = True
+        if changed:
+            await self.session.flush()
         return user

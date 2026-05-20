@@ -7,21 +7,20 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.client.session.aiohttp import AiohttpSession
 from aiogram.enums import ParseMode
 from aiogram.exceptions import TelegramNetworkError
+from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import BotCommand
 
-from app.bot.handlers import admin, booking, start
+from app.bot.handlers import admin, booking, fallback, start
 from app.core.config import get_settings
 from app.core.logging import configure_logging
-from app.db.seed import seed_reference_data
-from app.db.session import SessionLocal
 
 logger = logging.getLogger(__name__)
 
 BOT_COMMANDS = [
     BotCommand(command="start", description="Главное меню"),
-    BotCommand(command="rooms", description="Поиск свободных аудиторий"),
     BotCommand(command="book", description="Создать бронь"),
     BotCommand(command="my_bookings", description="Мои бронирования"),
+    BotCommand(command="cancel", description="Отменить бронь по ID"),
     BotCommand(command="help", description="Справка"),
 ]
 
@@ -62,18 +61,14 @@ async def _set_commands_with_retry(
                 break
             logger.warning(
                 "Telegram API unavailable (attempt %s/%s): %s. Retry in %s s.",
-                attempt,
-                retries,
-                exc,
-                delay,
+                attempt, retries, exc, delay,
             )
             await asyncio.sleep(delay)
             delay = min(delay * 2, max(1, max_delay_seconds))
     logger.error(
         "Cannot reach Telegram API after %s attempts. "
         "Check VPN/proxy (TELEGRAM_PROXY_URL) and try again. Last error: %s",
-        retries,
-        last_exc,
+        retries, last_exc,
     )
     raise last_exc if last_exc else RuntimeError("Telegram API unreachable")
 
@@ -82,15 +77,6 @@ async def run_bot() -> None:
     settings = get_settings()
     configure_logging()
 
-    async with SessionLocal() as session:
-        try:
-            await seed_reference_data(session)
-            await session.commit()
-            logger.info("Reference data seeded.")
-        except Exception:
-            await session.rollback()
-            logger.warning("Seed skipped (tables may not exist yet — run alembic upgrade head).")
-
     aiohttp_session = _build_session(settings)
     bot = Bot(
         token=settings.bot_token,
@@ -98,10 +84,11 @@ async def run_bot() -> None:
         session=aiohttp_session,
     )
 
-    dp = Dispatcher()
+    dp = Dispatcher(storage=MemoryStorage())
     dp.include_router(start.router)
     dp.include_router(booking.router)
     dp.include_router(admin.router)
+    dp.include_router(fallback.router)
 
     try:
         await _set_commands_with_retry(
@@ -119,8 +106,7 @@ async def run_bot() -> None:
             except TelegramNetworkError as exc:
                 logger.warning(
                     "Polling interrupted by network error: %s. Restart in %s s.",
-                    exc,
-                    settings.telegram_retry_delay_seconds,
+                    exc, settings.telegram_retry_delay_seconds,
                 )
                 await asyncio.sleep(max(1, settings.telegram_retry_delay_seconds))
     finally:

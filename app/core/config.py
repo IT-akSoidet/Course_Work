@@ -12,8 +12,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
     bot_token: str = "telegram-bot-token"
-    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/room_booking"
-    redis_url: str = "redis://localhost:6379/0"
+    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:55432/room_booking"
     telegram_proxy_url: Optional[str] = None
     telegram_connect_retries: int = 10
     telegram_retry_delay_seconds: int = 3

@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.db.models import Booking, Room, RoomUnavailability
+from app.db.models import Booking, Room, ScheduleSlot
 
 
 class RoomRepository:
@@ -21,41 +21,43 @@ class RoomRepository:
         result = await self.session.execute(query)
         return list(result.scalars().all())
 
-    async def get_room_for_update(self, room_id: int) -> Room | None:
-        query = select(Room).where(Room.id == room_id, Room.is_active.is_(True)).with_for_update()
+    async def get_with_building(self, room_id: int) -> Room | None:
+        query = (
+            select(Room)
+            .where(Room.id == room_id)
+            .options(selectinload(Room.building))
+        )
         result = await self.session.execute(query)
         return result.scalar_one_or_none()
 
-    async def has_unavailability_conflict(self, room_id: int, starts_at: datetime, ends_at: datetime) -> bool:
+    async def get_room_for_update(self, room_id: int) -> Room | None:
         query = (
-            select(RoomUnavailability.id)
-            .where(
-                RoomUnavailability.room_id == room_id,
-                RoomUnavailability.starts_at < ends_at,
-                RoomUnavailability.ends_at > starts_at,
-            )
-            .limit(1)
+            select(Room)
+            .where(Room.id == room_id, Room.is_active.is_(True))
+            .with_for_update()
         )
         result = await self.session.execute(query)
-        return result.scalar_one_or_none() is not None
+        return result.scalar_one_or_none()
 
     async def search_available_rooms(
-        self, starts_at: datetime, ends_at: datetime, min_capacity: int = 1,
+        self,
+        starts_at: datetime,
+        ends_at: datetime,
     ) -> list[Room]:
-        bookings_subquery = (
+        booked_rooms = (
             select(Booking.room_id)
             .where(
+                Booking.is_active.is_(True),
                 Booking.starts_at < ends_at,
                 Booking.ends_at > starts_at,
-                Booking.status_id.in_([1, 2]),
             )
             .subquery()
         )
-        unavailability_subquery = (
-            select(RoomUnavailability.room_id)
+        scheduled_rooms = (
+            select(ScheduleSlot.room_id)
             .where(
-                RoomUnavailability.starts_at < ends_at,
-                RoomUnavailability.ends_at > starts_at,
+                ScheduleSlot.starts_at < ends_at,
+                ScheduleSlot.ends_at > starts_at,
             )
             .subquery()
         )
@@ -63,12 +65,11 @@ class RoomRepository:
             select(Room)
             .where(
                 Room.is_active.is_(True),
-                Room.capacity >= min_capacity,
-                Room.id.not_in(select(bookings_subquery.c.room_id)),
-                Room.id.not_in(select(unavailability_subquery.c.room_id)),
+                Room.id.not_in(select(booked_rooms.c.room_id)),
+                Room.id.not_in(select(scheduled_rooms.c.room_id)),
             )
             .options(selectinload(Room.building))
-            .order_by(Room.capacity.asc())
+            .order_by(Room.building_id, Room.name)
         )
         result = await self.session.execute(query)
         return list(result.scalars().all())

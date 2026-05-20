@@ -1,34 +1,40 @@
-from datetime import datetime
-from enum import IntEnum
+from dataclasses import dataclass
+from datetime import datetime, timedelta
 
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import MOSCOW_TZ
+from app.db.models import Booking, ScheduleSlot, User
 from app.db.repositories.booking_repo import BookingRepository
 from app.db.repositories.room_repo import RoomRepository
 from app.db.repositories.user_repo import UserRepository
 
-
-class RoleId(IntEnum):
-    STUDENT = 1
-    TEACHER = 2
-    ADMIN = 3
-
-
-class BookingStatusId(IntEnum):
-    PENDING = 1
-    APPROVED = 2
-    REJECTED = 3
-    CANCELLED = 4
-
-
-class BookingConflictError(Exception):
-    pass
+MAX_BOOKING_HOURS = 8
 
 
 class BookingValidationError(Exception):
-    pass
+    """Bad input from the user — bad time range, too long, in the past."""
+
+
+@dataclass
+class BookingConflictError(Exception):
+    """Another active booking already covers the requested slot."""
+
+    conflict: Booking
+
+    def __str__(self) -> str:
+        return "Аудитория уже занята."
+
+
+@dataclass
+class ScheduleConflictError(Exception):
+    """A scheduled class already occupies the room at this time."""
+
+    conflict: ScheduleSlot
+
+    def __str__(self) -> str:
+        return "В это время в аудитории занятие по расписанию."
 
 
 class BookingService:
@@ -38,29 +44,44 @@ class BookingService:
         self.room_repo = RoomRepository(session)
         self.booking_repo = BookingRepository(session)
 
+    @staticmethod
+    def _ensure_aware(dt: datetime) -> datetime:
+        if dt.tzinfo is None:
+            return dt.replace(tzinfo=MOSCOW_TZ)
+        return dt
+
+    def _validate_interval(self, starts_at: datetime, ends_at: datetime) -> tuple[datetime, datetime]:
+        starts_at = self._ensure_aware(starts_at)
+        ends_at = self._ensure_aware(ends_at)
+
+        if starts_at >= ends_at:
+            raise BookingValidationError("Окончание должно быть позже начала.")
+
+        now = datetime.now(tz=MOSCOW_TZ)
+        if starts_at <= now:
+            raise BookingValidationError("Нельзя бронировать на прошедшее время.")
+
+        if (ends_at - starts_at) > timedelta(hours=MAX_BOOKING_HOURS):
+            raise BookingValidationError(
+                f"Максимальная длительность брони — {MAX_BOOKING_HOURS} часов."
+            )
+
+        return starts_at, ends_at
+
     async def create_booking(
         self,
         user_id: int,
         room_id: int,
         starts_at: datetime,
         ends_at: datetime,
-        purpose: str,
-    ):
-        if starts_at.tzinfo is None:
-            starts_at = starts_at.replace(tzinfo=MOSCOW_TZ)
-        if ends_at.tzinfo is None:
-            ends_at = ends_at.replace(tzinfo=MOSCOW_TZ)
-
-        now = datetime.now(tz=MOSCOW_TZ)
-        if starts_at >= ends_at:
-            raise BookingValidationError("Начало должно быть раньше окончания.")
-        if starts_at <= now:
-            raise BookingValidationError("Нельзя бронировать в прошедшем времени.")
+        purpose: str | None,
+    ) -> Booking:
+        starts_at, ends_at = self._validate_interval(starts_at, ends_at)
 
         async with self.session.begin():
             user = await self.user_repo.get_by_id(user_id)
-            if user is None or not user.is_active:
-                raise BookingValidationError("Пользователь не найден или деактивирован.")
+            if user is None:
+                raise BookingValidationError("Пользователь не найден.")
 
             room = await self.room_repo.get_room_for_update(room_id)
             if room is None:
@@ -71,25 +92,21 @@ class BookingService:
                 {"room_id": room_id},
             )
 
-            has_schedule_conflict = await self.room_repo.has_unavailability_conflict(
+            schedule_conflict = await self.booking_repo.find_schedule_conflict(
                 room_id, starts_at, ends_at,
             )
-            if has_schedule_conflict:
-                raise BookingConflictError("Время занято по расписанию пар.")
+            if schedule_conflict is not None:
+                raise ScheduleConflictError(schedule_conflict)
 
-            has_booking_conflict = await self.booking_repo.has_active_conflict(
+            booking_conflict = await self.booking_repo.find_active_conflict(
                 room_id, starts_at, ends_at,
             )
-            priority = 2 if user.role_id == RoleId.TEACHER else 1
-            status_id = BookingStatusId.APPROVED
-            if has_booking_conflict:
-                status_id = BookingStatusId.PENDING
+            if booking_conflict is not None:
+                raise BookingConflictError(booking_conflict)
 
             booking = await self.booking_repo.create_booking(
                 user_id=user_id,
                 room_id=room_id,
-                status_id=int(status_id),
-                priority=priority,
                 starts_at=starts_at,
                 ends_at=ends_at,
                 purpose=purpose,
@@ -97,18 +114,21 @@ class BookingService:
 
         return booking
 
-    async def list_user_bookings(self, user_id: int):
-        return await self.booking_repo.get_user_bookings(user_id)
+    async def list_user_bookings(self, user_id: int) -> list[Booking]:
+        return await self.booking_repo.get_active_user_bookings(user_id)
 
-    async def cancel_booking(self, booking_id: int, actor_user_id: int):
+    async def cancel_booking(self, booking_id: int, actor_user_id: int) -> Booking:
         async with self.session.begin():
-            booking = await self.booking_repo.get_by_id(booking_id)
+            booking = await self.booking_repo.get_with_room(booking_id)
             if booking is None:
                 raise BookingValidationError("Бронирование не найдено.")
             if booking.user_id != actor_user_id:
                 raise BookingValidationError("Нельзя отменять чужое бронирование.")
-            if booking.status_id not in (BookingStatusId.PENDING, BookingStatusId.APPROVED):
-                raise BookingValidationError("Бронирование уже неактивно.")
-            booking.status_id = int(BookingStatusId.CANCELLED)
-            await self.session.flush()
+            if not booking.is_active:
+                raise BookingValidationError("Бронирование уже отменено.")
+            booking.is_active = False
         return booking
+
+
+async def get_conflict_owner(session: AsyncSession, booking: Booking) -> User | None:
+    return await session.get(User, booking.user_id)
