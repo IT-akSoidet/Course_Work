@@ -144,8 +144,10 @@ def booking_created_kb(booking_id: int) -> InlineKeyboardMarkup:
 def my_bookings_kb(booking_id: int, idx: int, total: int) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     if total > 1:
-        builder.button(text="◀️ Пред.", callback_data=f"booking_page:{idx - 1}")
-        builder.button(text="▶️ След.", callback_data=f"booking_page:{idx + 1}")
+        prev_idx = (idx - 1) % total
+        next_idx = (idx + 1) % total
+        builder.button(text="◀️ Пред.", callback_data=f"booking_page:{prev_idx}")
+        builder.button(text="▶️ След.", callback_data=f"booking_page:{next_idx}")
     builder.button(
         text="❌ Отменить эту бронь",
         callback_data=f"booking_cancel:{booking_id}:{idx}",
