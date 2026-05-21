@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "additionalDirectories": [
-      "\\home\\dasha\\Course-work\\Course-work\\Backend-bot",
-      "\\\\wsl.localhost\\Ubuntu-24.04\\home\\dasha\\Course-work\\Course-work\\Backend-bot"
-    ]
-  }
-}
